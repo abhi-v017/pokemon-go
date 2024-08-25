@@ -73,3 +73,27 @@ h2 {
     font-weight: 400;
     font-style: normal;
 }
+
+/* responsiveness */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1rem;
+    }
+
+    .content {
+        font-size: 0.8rem;
+    }
+
+    .card {
+        margin: 6px;
+        width: 80%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .cards {
+        align-items: center;
+        flex-direction: column;
+    }
+
+}
