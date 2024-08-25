@@ -4,7 +4,7 @@
 }
 
 nav {
-    width: 100vw;
+    width: 100%;
     background-color: rgb(255, 111, 0);
 }
 
@@ -25,7 +25,7 @@ h2 {
     font-style: normal;
     color: rgb(255, 221, 0);
     text-shadow: 3px 0 #1628ea, -3px 0 #1628ea, 0 3px #1628ea, 0 -3px #1628ea,
-               1px 1px #1628ea, -1px -1px #1628ea, 1px -1px #1628ea, -1px 1px #1628ea;
+        1px 1px #1628ea, -1px -1px #1628ea, 1px -1px #1628ea, -1px 1px #1628ea;
 }
 
 .card {
@@ -40,6 +40,12 @@ h2 {
     align-items: center;
     flex-direction: column;
     cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 4px 4px 8px 4px rgba(142, 28, 28, 0.541);
 }
 
 .cards {
@@ -50,13 +56,16 @@ h2 {
     justify-content: center;
     flex-wrap: wrap;
 }
-.content-box{
+
+.content-box {
     display: flex;
     flex-direction: column;
 }
+
 #pokeimg {
     height: 100px;
-    width: 150px;
+    width: 100px;
+
 }
 
 .content {

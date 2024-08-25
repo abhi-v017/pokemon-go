@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="img/icons8-pokemon-16.ico">
+    <link href="https://fonts.googleapis.com/css2?family=Fruktur:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        nav {
+            width: 100%;
+            background-color: rgb(255, 111, 0);
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(255, 221, 0);
+            text-shadow: 3px 0 #1628ea, -3px 0 #1628ea, 0 3px #1628ea, 0 -3px #1628ea,
+                1px 1px #1628ea, -1px -1px #1628ea, 1px -1px #1628ea, -1px 1px #1628ea;
+            font-family: "Fruktur", system-ui;
+            font-weight: 400;
+            font-size: 2.2rem;
+            font-style: italic;
+            padding: 4px;
+        }
+
+        .details {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .gallary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px;
+        }
+
+        img {
+            cursor: pointer;
+            border: 2px solid black;
+            border-radius: 14px;
+            color: black;
+            width: 20%;
+            margin: 4px;
+            padding: 2px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        img:hover {
+            transform: scale(1.1);
+            box-shadow: 4px 4px 8px 4px rgba(188, 26, 26, 0.687);
+        }
+
+        .heading {
+            width: 70%;
+            background-color: rgb(59, 55, 55);
+            border-radius: 14px;
+            color: white;
+            margin: auto;
+        }
+
+        .poke-details {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            background-color: rgb(251, 103, 84);
+            border-radius: 14px;
+            width: 90%;
+            padding: 4px;
+            color: white;
+        }
+
+        .specs {
+            display: flex;
+            text-shadow: 3px 0 #1628ea, -3px 0 #1628ea, 0 3px #1628ea, 0 -3px #1628ea,
+                1px 1px #1628ea, -1px -1px #1628ea, 1px -1px #1628ea, -1px 1px #1628ea;
+            font-family: "Fruktur", system-ui;
+            font-weight: 400;
+            font-size: 2.2rem;
+            gap: 16px;
+        }
+
+        .content {
+            text-shadow: 0px 0 #252526, 0px 0 #252526, 0 0px #252526, 0 0px #252526,
+                0px 0px #252526, 0px 0px #252526, 0px 0px #252526, 0px 0px #252526;
+            font-size: 1.8rem;
+        }
+    </style>
+    <title>Pokemon-Details</title>
+</head>
+
+<body>
+    <nav>
+        <h1 id="heading">bulbasaur</h1>
+    </nav>
+    <div class="details">
+        <div class="gallary">
+            <img id="img1"
+                src="" alt="Loading...">
+            <img id="img2"
+                src="", alt="Loading...">
+            <img id="img3"
+                src=""alt="Loading...">
+            <img id="img4"
+                src=""alt="Loading...">
+        </div>
+        <h1 class="heading">Characterstics</h1>
+        <div class="poke-details">
+            <span class="specs">Height: <span id="height" class="content">0 dm</span></span>
+            <span class="specs">Weight: <span id="weight" class="content">7 hg</span></span>
+            <span class="specs">Ability: <span id="ability" class="content">overgrow, chlorophyll</span></span>
+            <span class="specs">Moves: <span id="moves" class="content">razor-wind, swords-dance, cut, bind, vine-whip,
+                    headbutt, tackle, body-slam, take-down, double-edge, growl, strength, mega-drain, leech-seed,
+                    growth, razor-leaf, solar-beam, poison-powder, sleep-powder, petal-dance, string-shot, toxic, rage,
+                    mimic, double-team, defense-curl, light-screen, reflect, bide, sludge, skull-bash, amnesia, flash,
+                    rest, substitute, snore</span></span>
+            <span class="specs">Spicies: <span id="species" class="content">bulbasaur</span></span>
+            <span class="specs">Type: <span id="type" class="content">grass, poison</span></span>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Function to get query parameter by name
+            function getQueryParam(param) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(param);
+            }
+
+            // Get the Pokémon name from the query parameter
+            const pokemonName = getQueryParam('name');
+            // console.log(pokemonName)
+
+            const url = 'https://pokeapi.co/api/v2/pokemon?limit=151'
+
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+                    return response.json()
+                })
+                .then(data => {
+                    // console.log('data fetched successfully', data)
+                    const pokemonList = data.results;
+                    const pokemon = pokemonList.find(p => p.name === pokemonName);
+                    if (pokemon) {
+                        // Fetch details of the specific Pokémon using its URL
+                        // console.log('mila?')
+
+                        fetch(pokemon.url)
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! Status: ${response.status}`);
+                                }
+                                return response.json()
+                            })
+                            .then(pokemonData => {
+                                console.log('pokemon data fetched successfully', pokemonData)
+                                document.getElementById('heading').innerHTML = pokemonName
+                                document.getElementById('height').innerHTML = pokemonData.height + ' dm'
+                                document.getElementById('weight').innerHTML = pokemonData.weight + ' hg'
+                                document.getElementById('species').innerHTML = pokemonData.species.name
+                                document.getElementById('type').innerHTML = pokemonData.types.map(type => type.type.name).join(', ')
+                                document.getElementById('ability').innerHTML = pokemonData.abilities.map(ability => ability.ability.name).join(', ')
+                                document.getElementById('moves').innerHTML = pokemonData.moves.map(move => move.move.name).join(', ')
+                                document.getElementById('img1').src = pokemonData.sprites.other.dream_world.front_default
+                                document.getElementById('img2').src = pokemonData.sprites.other.home.front_default
+                                document.getElementById('img3').src = pokemonData.sprites.other['official-artwork'].front_default
+                                document.getElementById('img4').src = pokemonData.sprites.other['official-artwork'].front_shiny
+
+                            })
+                            .catch(error => {
+                                console.error('Error fetching Pokémon data:', error);
+                            })
+
+                    } else {
+                        throw new Error('Pokémon not found');
+                    }
+                })
+                .catch(error => {
+                    console.error('An error occurred:', error.message);
+                })
+        })
+        document.addEventListener('DOMContentLoaded', function() {
+        const galleryImages = document.querySelectorAll('.gallary img');
+
+        galleryImages.forEach(image => {
+            image.addEventListener('click', function() {
+                window.open(this.src, '_blank');
+            });
+        });
+    });
+    </script>
+</body>
+
+</html>
